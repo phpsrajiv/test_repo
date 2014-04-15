@@ -1,0 +1,10 @@
+name = Disqus Inline
+description = Making Disqus comments available for Paragraph inline
+core = 7.x
+php = 5
+dependencies[] = disqus
+
+files[] = disqus_inline.module
+files[] = disqus_inline.admin.inc
+
+configure = admin/config/disqus-inline
