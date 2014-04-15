@@ -28,7 +28,7 @@ function disqus_inline_help($path, $arg) {
 function disqus_inline_permission() {
   return array(
     'administer disqus inline' => array(
-      'title' => t('Administer Disqus'),
+      'title' => t('Administer Disqus Inline'),
       'description' => t('Perform administrative actions with Disqus Inline.'),
     ),
   );
@@ -49,3 +49,24 @@ function disqus_inline_menu() {
   );
   return $items;
 }
+
+/**
+ * Implements hook_node_view().
+ */
+function disqus_inline_node_view($node, $view_mode) {
+  if (isset($node->disqus) && user_access('view disqus comments') && $node->disqus['status'] == 1) {
+    switch ($view_mode) {
+      case 'full':
+drupal_add_css(drupal_get_path('module', 'disqus_inline') . '/css/style.css');
+        drupal_add_js(drupal_get_path('module', 'disqus_inline') . '/js/inlineDisqussions.js',array('scope'=>'footer'));
+        drupal_add_js(drupal_get_path('module', 'disqus_inline') . '/js/disqus_inline.js',array('scope'=>'footer'));
+        
+      break;
+    }
+  }
+  else {
+    return array();
+  }
+}
+
+
